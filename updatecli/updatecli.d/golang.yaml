@@ -11,6 +11,7 @@ actions:
         labels:
           - chore
       scmid: default
+
 scms:
   default:
     kind: github

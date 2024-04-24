@@ -42,7 +42,6 @@ sources:
         kind: regex
         pattern: 'v(\d*).(\d*).(\d*)$'
 
-
 targets:
   go-version:
     name: 'golang: update golang version to {{ source "golang" }}'
