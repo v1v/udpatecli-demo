@@ -26,15 +26,15 @@ jobs:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-#      - if: github.ref == 'refs/heads/main'
-#        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a  # v2.1
-#        id: generate_token
-#        with:
-#          app_id: ${{ secrets.V1V_BOT_APP_ID }}
-#          private_key: ${{ secrets.V1V_BOT_APP_PRIVKEY }}
+      - if: github.ref == 'refs/heads/main'
+        uses: tibdex/github-app-token@3beb63f4bd073e61482598c45c71c1019b59b73a  # v2.1
+        id: generate_token
+        with:
+          app_id: ${{ secrets.V1V_UPDATECLI_BOT_APP_ID }}
+          private_key: ${{ secrets.V1V_UPDATECLI_BOT_APP_PRIVKEY }}
 
-#      - if: github.ref == 'refs/heads/main'
-#        run: updatecli compose apply
-#        env:
-#          GITHUB_ACTOR: ${{ secrets.V1V_BOT_GITHUB_ACTOR }}
-#          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
+      - if: github.ref == 'refs/heads/main'
+        run: updatecli compose apply
+        env:
+          GITHUB_ACTOR: ${{ secrets.V1V_UPDATECLI_BOT_GITHUB_ACTOR }}
+          GITHUB_TOKEN: ${{ steps.generate_token.outputs.token }}
