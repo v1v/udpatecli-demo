@@ -1,0 +1,47 @@
+name: "golang: bump golang version"
+
+pipelineid: "golang"
+
+actions:
+  default:
+      title: 'deps: Bump Golang version to {{ source "golang" }}'
+      kind: github/pullrequest
+      spec:
+        automerge: true
+        labels:
+          - chore
+      scmid: default
+scms:
+  default:
+    kind: github
+    spec:
+        branch: '{{ .scm.branch }}'
+        email: '{{ .scm.email }}'
+        owner: '{{ .scm.owner }}'
+        repository: '{{ .scm.repository }}'
+        token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+        user: '{{ .scm.user }}'
+        username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+
+sources:
+  golang:
+    name: Get latest Golang version
+    kind: golang
+
+conditions:
+  container:
+    name: "Ensure latest container image is publish"
+    kind: dockerimage
+    spec:
+      image: golang
+      tag: '{{ source "golang" }}'
+
+targets:
+  go-version:
+    name: 'golang: update golang version to {{ source "golang" }}'
+    kind: file
+    spec:
+      content: '{{ source `golang` }}'
+      file: golang/.go-version
+    scmid: default
+    sourceid: golang

@@ -1,0 +1,9 @@
+---
+scm:
+  enabled: true
+  user: v1v
+  email: bot@v1v.io
+  owner: v1v
+  repository: updatecli-demo
+  username: "v1v-bot"
+  branch: main
