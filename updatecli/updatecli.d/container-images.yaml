@@ -1,0 +1,62 @@
+name: "container-images: bump golang and ko versions"
+
+pipelineid: "container-images"
+
+actions:
+  default:
+      title: 'deps: Bump Golang and ko versions to {{ source "golang" }} and {{ source "ko" }}'
+      kind: github/pullrequest
+      spec:
+        automerge: true
+        labels:
+          - chore
+      scmid: default
+
+scms:
+  default:
+    kind: github
+    spec:
+        branch: '{{ .scm.branch }}'
+        email: '{{ .scm.email }}'
+        owner: '{{ .scm.owner }}'
+        repository: '{{ .scm.repository }}'
+        token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+        user: '{{ .scm.user }}'
+        username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+
+sources:
+  golang:
+    name: Get latest Golang version
+    kind: golang
+  ko:
+    name: Get latest ko version
+    kind: githubrelease
+    transformers:
+      - trimprefix: v
+    spec:
+      owner: ko-build
+      repository: ko
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+      versionfilter:
+        kind: regex
+        pattern: 'v(\d*).(\d*).(\d*)$'
+
+
+targets:
+  go-version:
+    name: 'golang: update golang version to {{ source "golang" }}'
+    kind: file
+    spec:
+      content: '{{ source `golang` }}'
+      file: container-images/ko-builder/.go-version
+    scmid: default
+    sourceid: golang
+  ko-version:
+    name: 'ko: update ko version to {{ source "ko" }}'
+    kind: file
+    spec:
+      content: '{{ source `ko` }}'
+      file: container-images/ko-builder/.ko-version
+    scmid: default
+    sourceid: ko
