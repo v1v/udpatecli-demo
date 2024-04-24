@@ -1,0 +1,54 @@
+---
+name: "stack: bump elastic stack version"
+
+pipelineid: 'bump-elastic-stack-snapshot'
+
+actions:
+  default:
+      title: '[updatecli] update elastic stack version for testing {{ source "stack" }}'
+      kind: github/pullrequest
+      spec:
+        automerge: true
+        labels:
+          - automation
+          - chore
+      scmid: default
+
+scms:
+  default:
+    kind: github
+    spec:
+        branch: '{{ .scm.branch }}'
+        email: '{{ .scm.email }}'
+        owner: '{{ .scm.owner }}'
+        repository: '{{ .scm.repository }}'
+        token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+        user: '{{ .scm.user }}'
+        username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+
+sources:
+  stack:
+    name: Get latest snapshot build
+    kind: json
+    spec:
+      file: https://storage.googleapis.com/artifacts-api/snapshots/main.json
+      key: .build_id
+
+conditions:
+  container:
+    name: "Ensure latest container image is publish"
+    kind: dockerimage
+    spec:
+      image: docker.elastic.co/apm/apm-server
+      tag: '{{ source "stack" }}-SNAPSHOT'
+
+targets:
+  docker-compose:
+    name: 'docker-compose: update docker version to {{ source "stack" }}'
+    kind: file
+    spec:
+      file: unified-release/docker-compose.yaml
+      matchpattern: '(image: docker\.elastic\.co/.*):\d+.\d+.\d+-.*-SNAPSHOT'
+      replacepattern: '$1:{{ source "stack" }}-SNAPSHOT'
+    scmid: default
+    sourceid: stack
