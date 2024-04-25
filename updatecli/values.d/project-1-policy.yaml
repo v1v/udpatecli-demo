@@ -1,0 +1,4 @@
+name: "deps(golang): Bump Golang"
+pipelineid: "golang/version"
+
+path: project-1

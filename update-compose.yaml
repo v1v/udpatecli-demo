@@ -4,3 +4,9 @@ policies:
       - updatecli/updatecli.d/
     values:
       - updatecli/values.d/scm.yaml
+
+  - name: Golang Version project-1
+    policy: ghcr.io/v1v/updatecli-policies-demo/golang/version:0.1.1
+    values:
+      - updatecli/values.d/scm.yaml
+      - updatecli/values.d/project-1-policy.yaml
