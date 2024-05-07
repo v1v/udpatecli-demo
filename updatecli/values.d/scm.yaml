@@ -2,8 +2,8 @@
 scm:
   enabled: true
   user: v1v
-  email: bot@v1v.io
+  email: VictorMartinezRubio@gmail.com
   owner: v1v
   repository: updatecli-demo
-  username: "v1v-bot"
+  username: v1v
   branch: main
