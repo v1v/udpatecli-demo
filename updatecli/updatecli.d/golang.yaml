@@ -16,12 +16,10 @@ scms:
     kind: github
     spec:
       branch: '{{ .scm.branch }}'
-      email: '{{ .scm.email }}'
       owner: '{{ .scm.owner }}'
       repository: '{{ .scm.repository }}'
       token: '{{ requiredEnv "GITHUB_TOKEN" }}'
       user: '{{ requiredEnv "GITHUB_ACTOR" }}'
-      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
       commitusingapi: true
 
 sources:

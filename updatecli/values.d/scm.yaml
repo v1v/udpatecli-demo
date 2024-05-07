@@ -1,8 +1,6 @@
 ---
 scm:
   enabled: true
-  user: v1v
-  email: VictorMartinezRubio@gmail.com
   owner: v1v
   repository: updatecli-demo
   branch: main
