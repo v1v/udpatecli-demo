@@ -13,7 +13,8 @@ jobs:
   updatecli:
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
+      pull-requests: write
     steps:
       - if: github.ref == 'refs/heads/main'
         uses: actions/create-github-app-token@v1
@@ -36,5 +37,7 @@ jobs:
       - if: github.ref == 'refs/heads/main'
         run: updatecli --experimental --debug compose apply
         env:
-          GITHUB_ACTOR: ${{ secrets.V1V_UPDATECLI_BOT_GITHUB_ACTOR }}
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          #GITHUB_ACTOR: ${{ secrets.V1V_UPDATECLI_BOT_GITHUB_ACTOR }}
+          #GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
