@@ -5,26 +5,27 @@ pipelineid: 'bump-elastic-stack-snapshot'
 
 actions:
   default:
-      title: '[updatecli] update elastic stack version for testing {{ source "stack" }}'
-      kind: github/pullrequest
-      spec:
-        labels:
-          - automation
-          - chore
-      scmid: default
+    title: '[updatecli] update elastic stack version for testing {{ source "stack" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - automation
+        - chore
+    scmid: default
 
 scms:
   default:
     kind: github
     spec:
-        branch: '{{ .scm.branch }}'
-        email: '{{ .scm.email }}'
-        owner: '{{ .scm.owner }}'
-        repository: '{{ .scm.repository }}'
-        token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-        user: '{{ .scm.user }}'
-        username: '{{ requiredEnv "GITHUB_ACTOR" }}'
-        commitusingapi: true
+      branch: '{{ .scm.branch }}'
+      email: '{{ .scm.email }}'
+      owner: '{{ .scm.owner }}'
+      repository: '{{ .scm.repository }}'
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      user: '{{ .scm.user }}'
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+      gpg:
+        signingkey: '{{ requiredEnv "PRIVATE_KEY" }}'
 
 sources:
   stack:

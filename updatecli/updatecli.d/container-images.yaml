@@ -4,25 +4,26 @@ pipelineid: "container-images"
 
 actions:
   default:
-      title: 'deps: Bump Golang and ko versions to {{ source "golang" }} and {{ source "ko" }}'
-      kind: github/pullrequest
-      spec:
-        labels:
-          - chore
-      scmid: default
+    title: 'deps: Bump Golang and ko versions to {{ source "golang" }} and {{ source "ko" }}'
+    kind: github/pullrequest
+    spec:
+      labels:
+        - chore
+    scmid: default
 
 scms:
   default:
     kind: github
     spec:
-        branch: '{{ .scm.branch }}'
-        email: '{{ .scm.email }}'
-        owner: '{{ .scm.owner }}'
-        repository: '{{ .scm.repository }}'
-        token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-        user: '{{ .scm.user }}'
-        username: '{{ requiredEnv "GITHUB_ACTOR" }}'
-        commitusingapi: true
+      branch: '{{ .scm.branch }}'
+      email: '{{ .scm.email }}'
+      owner: '{{ .scm.owner }}'
+      repository: '{{ .scm.repository }}'
+      token: '{{ requiredEnv "GITHUB_TOKEN" }}'
+      user: '{{ .scm.user }}'
+      username: '{{ requiredEnv "GITHUB_ACTOR" }}'
+      gpg:
+        signingkey: '{{ requiredEnv "PRIVATE_KEY" }}'
 
 sources:
   golang:
