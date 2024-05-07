@@ -29,23 +29,13 @@ jobs:
         with:
           version: "v0.76.1"
 
-      - name: Import GPG key
-        uses: crazy-max/ghaction-import-gpg@01dd5d3ca463c7f10f7f4f7b4f177225ac661ee4  # v6.1.0
-        with:
-          gpg_private_key: ${{ secrets.SIGNING_KEY_PRIVATE_KEY }}
-          passphrase: ${{ secrets.PASSPHRASE }}
-
       - run: updatecli --experimental --debug compose diff
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          PASSPHRASE: ${{ secrets.PASSPHRASE }}
 
       - if: github.ref == 'refs/heads/main'
         run: updatecli --experimental --debug compose apply
         env:
-          GITHUB_ACTOR: ${{ secrets.V1V_UPDATECLI_BOT_GITHUB_ACTOR }}
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
-          PASSPHRASE: ${{ secrets.PASSPHRASE }}
+          GITHUB_ACTOR: ${{ github.actor }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
