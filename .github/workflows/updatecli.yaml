@@ -33,12 +33,13 @@ jobs:
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          PRIVATE_KEY: ${{ secrets.V1V_UPDATECLI_BOT_APP_PRIVKEY }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
+          PASSPHRASE: ${{ secrets.PASSPHRASE }}
 
       - if: github.ref == 'refs/heads/main'
         run: updatecli --experimental --debug compose apply
         env:
           GITHUB_ACTOR: ${{ secrets.V1V_UPDATECLI_BOT_GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
-          PRIVATE_KEY: ${{ secrets.SIGNING_KEY }}
+          SIGNING_KEY: ${{ secrets.SIGNING_KEY }}
           PASSPHRASE: ${{ secrets.PASSPHRASE }}
