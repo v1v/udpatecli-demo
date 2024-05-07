@@ -16,14 +16,13 @@ scms:
     kind: github
     spec:
       branch: '{{ .scm.branch }}'
-      email: '{{ .scm.email }}'
       owner: '{{ .scm.owner }}'
       repository: '{{ .scm.repository }}'
       token: '{{ requiredEnv "GITHUB_TOKEN" }}'
-      user: '{{ .scm.user }}'
       username: '{{ requiredEnv "GITHUB_ACTOR" }}'
       gpg:
-        signingkey: '{{ requiredEnv "PRIVATE_KEY" }}'
+        signingkey: '{{ requiredEnv "SIGNING_KEY" }}'
+        passphrase: '{{ requiredEnv "PASSPHRASE" }}'
 
 sources:
   golang:
