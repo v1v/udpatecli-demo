@@ -7,7 +7,6 @@ actions:
       title: 'deps: Bump Golang and ko versions to {{ source "golang" }} and {{ source "ko" }}'
       kind: github/pullrequest
       spec:
-        automerge: true
         labels:
           - chore
       scmid: default

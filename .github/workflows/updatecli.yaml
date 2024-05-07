@@ -28,13 +28,13 @@ jobs:
         with:
           version: "v0.76.0-rc.1"
 
-      - run: updatecli --experimental compose diff
+      - run: updatecli --experimental --debug compose diff
         env:
           GITHUB_ACTOR: ${{ github.actor }}
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - if: github.ref == 'refs/heads/main'
-        run: updatecli --experimental compose apply
+        run: updatecli --experimental --debug compose apply
         env:
           GITHUB_ACTOR: ${{ secrets.V1V_UPDATECLI_BOT_GITHUB_ACTOR }}
           GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}

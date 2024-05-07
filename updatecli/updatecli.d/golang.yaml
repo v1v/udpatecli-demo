@@ -7,7 +7,6 @@ actions:
       title: 'deps: Bump Golang version to {{ source "golang" }}'
       kind: github/pullrequest
       spec:
-        automerge: true
         labels:
           - chore
       scmid: default

@@ -8,7 +8,6 @@ actions:
       title: '[updatecli] update elastic stack version for testing {{ source "stack" }}'
       kind: github/pullrequest
       spec:
-        automerge: true
         labels:
           - automation
           - chore
