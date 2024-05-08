@@ -1,0 +1,26 @@
+name: test
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  updatecli:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/create-github-app-token@v1
+        id: app-token
+        with:
+          app-id: ${{ secrets.V1V_UPDATECLI_BOT_APP_ID }}
+          private-key: ${{ secrets.V1V_UPDATECLI_BOT_APP_PRIVKEY }}
+
+      - run: GH_DEBUG=api gh variable list --json name,value
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+
+      - run: gh variable list --json name,value
+        env:
+          GITHUB_ACTOR: ${{ github.actor }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
